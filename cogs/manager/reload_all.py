@@ -15,7 +15,7 @@ class CogStuff(commands.Cog):
     @commands.hybrid_command(name="reload", description="And now I'll wave, so long! -- Placeholder")
     async def reload(self, ctx: Context, what: str, name: str):
         if SemiFunc.snowy_wants_to_die:
-            await ctx.reply("You don't deserve me as a bot here, and you don't deserve Snowy here on earth....")
+            await ctx.reply("It's normal to lose interest in life.. snowy has lost *ALL* interest in life...")
             return
 
         if SemiFunc.command_disabled(ctx):

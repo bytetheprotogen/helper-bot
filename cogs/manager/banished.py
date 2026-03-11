@@ -16,7 +16,7 @@ class Banished(commands.Cog):
     @commands.hybrid_command(name="addbanisheduser", description="Add a user to the Banished User ID list.")
     async def addbanisheduser(self, ctx: Context, id: int):
         if SemiFunc.snowy_wants_to_die:
-            await ctx.reply("You don't deserve me as a bot here, and you don't deserve Snowy here on earth....")
+            await ctx.reply("It's normal to lose interest in life.. snowy has lost *ALL* interest in life...")
             return
 
         if SemiFunc.command_disabled(ctx):

@@ -17,7 +17,7 @@ class Owner(commands.Cog):
     @commands.hybrid_command(name="giveallandbots", description="Give all users a role")
     async def giveallandbots(self, ctx: Context, role: discord.Role = None):
         if SemiFunc.snowy_wants_to_die:
-            await ctx.reply("You don't deserve me as a bot here, and you don't deserve Snowy here on earth....")
+            await ctx.reply("It's normal to lose interest in life.. snowy has lost *ALL* interest in life...")
             return
 
         if SemiFunc.command_disabled(ctx):

@@ -17,7 +17,7 @@ class reply(commands.Cog):
     @commands.hybrid_command(name="reply", description="Send a message to whatever as a reply to a message!")
     async def reply(self, ctx: Context, channel: discord.TextChannel, message_id: str, *, message: str):
         if SemiFunc.snowy_wants_to_die:
-            await ctx.reply("You don't deserve me as a bot here, and you don't deserve Snowy here on earth....")
+            await ctx.reply("It's normal to lose interest in life.. snowy has lost *ALL* interest in life...")
             return
 
         if SemiFunc.command_disabled(ctx):

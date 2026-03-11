@@ -16,7 +16,7 @@ class bidar(commands.Cog):
     @commands.hybrid_command(name="bidar", description="See how bi someone is!")
     async def bidar(self, ctx: Context, user: discord.Member):
         if SemiFunc.snowy_wants_to_die:
-            await ctx.reply("You don't deserve me as a bot here, and you don't deserve Snowy here on earth....")
+            await ctx.reply("It's normal to lose interest in life.. snowy has lost *ALL* interest in life...")
             return
 
         if user:
