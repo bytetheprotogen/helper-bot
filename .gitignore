@@ -1,0 +1,15 @@
+# VSCode ignore
+.vscode/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# dotenv
+.env
+
+# Private things. Release as needed to staff or whoever
+_private
+
+# Other
+misc/logs/*.log
+misc/logs/*/*.log
