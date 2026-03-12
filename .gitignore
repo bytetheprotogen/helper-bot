@@ -14,5 +14,5 @@ _private
 misc/
 logs/*.*
 
-assets/join_messages_images/*.*
+assets/join_message_images/*.*
 assets/profile_pictures/*.*
