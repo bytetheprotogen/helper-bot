@@ -18,7 +18,7 @@ class CuteDenier9000(commands.Cog):
             msg_content_lower = msg.content.lower()
                 
             if msg_content_lower.find("not cute") >= 0 or msg_content_lower.find("nawt cute") >= 0:
-                if random.randint(1, 100) > 70:
+                if random.randint(1, 100) > 80:
                     await msg.reply("Cute denier detected! They are undeniably cute.")
 
 async def setup(bot):
