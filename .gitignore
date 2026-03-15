@@ -11,6 +11,9 @@ __pycache__/
 _private
 
 # Other
+cogs/test
+testing
+
 misc/temp
 misc/afk.db
 # misc/banished.db
