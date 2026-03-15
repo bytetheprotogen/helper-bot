@@ -11,7 +11,11 @@ __pycache__/
 _private
 
 # Other
-misc/
+misc/temp
+misc/afk.db
+# misc/banished.db
+# misc/server_cfg.db
+
 logs/*.log
 logs/errors/*
 
