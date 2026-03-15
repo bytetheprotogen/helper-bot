@@ -53,14 +53,16 @@ async def status_loop(bot):
 class Status(commands.Cog):
     def __init__(self, bot):
         self.bot: Bot = bot
+        self.status_rand_connected = False
 
     @commands.Cog.listener()
     async def on_connect(self):
-        
-        # 09/03/2026 - Random statuses
-        # await change_status(self.bot)
-        self.bot.loop.create_task(status_loop(self.bot))
-        # await self.bot.change_presence(status=discord.Status.online, activity=discord.CustomActivity(name="It's normal to lose interest in life.. snowy has lost *ALL* interest in life..."))
+        if self.status_rand_connected == False:
+            # 09/03/2026 - Random statuses
+            self.status_rand_connected = True
+            # await change_status(self.bot)
+            self.bot.loop.create_task(status_loop(self.bot))
+            # await self.bot.change_presence(status=discord.Status.online, activity=discord.CustomActivity(name="It's normal to lose interest in life.. snowy has lost *ALL* interest in life..."))
 
 async def setup(bot):
     await bot.add_cog(Status(bot))

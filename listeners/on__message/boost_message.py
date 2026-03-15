@@ -27,8 +27,8 @@ class BoostMessage(commands.Cog):
 
             if total_boosts == boosts:
                 total_boosts = total_boosts + 1
-            # boosts_channel.edit(topic=f"Thanks for the boost! Current boosts: 16 Total boosts: 16{boosts})")
-            await boosts_channel.send(f"Thanks for boosting our server {msg.author.mention}!\nWe now have a total of {total_boosts}!")
+                
+            await boosts_channel.send(f"Thanks for boosting our server {msg.author.mention}!\nWe now have a total of {total_boosts}!\n\n||or {boosts}, this is confusing qwq||")
 
             return
 

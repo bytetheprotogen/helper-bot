@@ -36,8 +36,12 @@ class OnCommandError(commands.Cog):
             # if ctx.interaction != None:
             #     command_name = ctx.interaction.command.name
 
-            await ctx.reply(f"An error occured with the command! {mention_snowy}\n\n```{error}```")
-            self.bot.logger.warn(f"An error occured with the command '{command_name}' used by {ctx.author.name}!\n{error}\n")
+            # 14/03/2026 - mute error:
+            if ctx.command.name == "mute":
+                await ctx.reply(f"Argument missing or invaild duration. Duration Examples:\n5s-5 seconds\n5m-5 minutes\n5h-5 hours\n5d- 5 days\n\nMax duration is 28 days.")
+            else:
+                await ctx.reply(f"An error occured with the command! {mention_snowy}\n\n```{error}```")
+                self.bot.logger.warn(f"An error occured with the command '{command_name}' used by {ctx.author.name}!\n{error}\n")
 
             with open(f"logs/errors/commands/{date}", "w") as f:
                 f.write(f"An error occured with {ctx.command.name} ran by {ctx.author.name} on {date}\n\nError: {error}")
