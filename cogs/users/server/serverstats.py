@@ -9,8 +9,16 @@ class serverinfo(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="serverinfo", description="Server stats")
+    @commands.hybrid_command(name="serverinfo")
     async def serverinfo(self, ctx: Context):
+        """
+        Display the server stats (total members, total bots, etc)
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
@@ -23,7 +31,7 @@ class serverinfo(commands.Cog):
         members = 0
         bots = 0
         roles = len(ctx.guild.roles)
-        # print(len(ctx.guild.categories))
+        # len(ctx.guild.categories)
         creation_date = ctx.guild.created_at.strftime("%d/%m/%Y %H:%M")
 
         for member in ctx.guild.members:

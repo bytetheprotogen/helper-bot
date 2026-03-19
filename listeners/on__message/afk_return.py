@@ -1,6 +1,7 @@
 import sqlite3
 import discord
 
+from utils.database import Database
 from datetime import datetime
 from discord.ext import commands
 from discord.errors import *
@@ -44,10 +45,9 @@ class AFKReturn(commands.Cog):
                                 days_text = "days"
                             
                             ## Remove from database
-                            conn = sqlite3.connect("misc/afk.db")
-                            conn.execute(f"DELETE FROM users WHERE user_id = {afk_user['user_id']}")
+                            conn = Database.userdata_conn
+                            conn.execute(f"DELETE FROM afk_users WHERE user_id = {afk_user['user_id']}")
                             conn.commit()
-                            conn.close()
 
                             SemiFunc.update_afk(self.bot.logger)
 

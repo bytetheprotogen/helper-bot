@@ -1,15 +1,53 @@
 {
     "disabled": [
-        
+        "balance",
+        "bal",
+        "blackjack",
+        "coin",
+        "cups",
+        "cooldowntest",
+        "give",
+        "add_money",
+        "remove_money",
+
+        "work",
+        "quit",
+        "apply",
+        "jobs"
     ],
     "disabled_other": [
         "membercount",
         "emotes",
         "listmods",
         "nick",
-        "members",
-        ""
+        "members"
     ],
+    "ignore_channels": {
+        "to_be_removed": [
+            1419037577280880804,
+            1477660652616159252,
+
+            1414222708324958385,
+            1414222708324958387,
+            1414222708324958386,
+
+            1478168812124635188,
+            1419031439093010512,
+            1419032198220353627,
+
+            1477660894988341339
+        ],
+        "manager": [
+
+        ],
+        "staff": [
+
+        ],
+        "users": [
+
+        ]
+    },
+
     "topics": [
         "Who is your favourite person and/or animal",
         "What is your favourite item",
@@ -18,14 +56,6 @@
 
         "What do you think should be added to the bot?"
     ],
-    "ignore_channels": {
-        "main": [
-            
-        ],
-        "test": [
-
-        ]
-    },
     
     "staff": [
         "ban",
@@ -46,6 +76,9 @@
         "sillinate": []
     },
     "expections": {
+        "reload": [
+            1403877222959419423
+        ],
         "afk": [
             1403877222959419423,
             1094359688541372457,

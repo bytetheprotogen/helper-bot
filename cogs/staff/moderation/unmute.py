@@ -14,8 +14,20 @@ class unmute(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="unmute", description="Unmute a user!")
+    @commands.hybrid_command(name="unmute")
     async def unmute(self, ctx: Context, user: discord.Member = None, *, reason: str = "No reason provided."):
+        """
+        Unmute a user
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        user: discord.Member
+            The user to unmute
+        reason: str
+            The reason to unmute them
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return

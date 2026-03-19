@@ -1,10 +1,10 @@
 import os
 import json
-import psutil
+# import psutil
 import random
 import asyncio
 import discord
-import platform
+# import platform
 import datetime
 import logging
 import logging.handlers
@@ -52,26 +52,30 @@ class Bot(AutoShardedBot):
 
         self.shutting_down = True
 
-        await asyncio.sleep(1)
+        await asyncio.sleep(0.1)
         test_server = self.get_guild(1480087423433052242)
         status_channel = test_server.get_channel(1482618083263643698)
 
-        last_message = await status_channel.fetch_message(1482633940039630869)
+        status_message = await status_channel.fetch_message(1482633940039630869)
         
-        if last_message != None:
-            uname = platform.uname()
-            svmem = psutil.virtual_memory()
-            node_name = uname.node
+        if self.user.id == 1482861019582693507:
+            status_message = await status_channel.fetch_message(1483989253045358602)
 
-            bot_drive = None
-            bot_drive_usage = None
-            for i, part in enumerate(psutil.disk_partitions()):
-                if part.mountpoint.startswith("D"):
-                    bot_drive = part
-                    bot_drive_usage = psutil.disk_usage(part.mountpoint)
+        if status_message != None:
+            # uname = platform.uname()
+            # svmem = psutil.virtual_memory()
+            # node_name = uname.node
+
+            # bot_drive = None
+            # bot_drive_usage = None
+            # for i, part in enumerate(psutil.disk_partitions()):
+            #     if part.mountpoint.startswith("D"):
+            #         bot_drive = part
+            #         bot_drive_usage = psutil.disk_usage(part.mountpoint)
 
             embed = self.create_embed(
-                f"🖥️ {node_name} | STATUS",
+                # 🖥️ {node_name} | STATUS
+                f"🖥️ {self.user.display_name} | STATUS",
                 description="Updates every minute.\n\n",
                 color=discord.Color.red(),
                 fields=[
@@ -79,30 +83,30 @@ class Bot(AutoShardedBot):
                         "name": "🔴 Status",
                         "value": "Offline",
                         "inline": True
-                    },
-                    {
-                        "name": "📊 Current Metrics",
-                        "value": f"• CPU: {psutil.cpu_percent()}%\n• Memory: {get_size(svmem.used)} / {get_size(svmem.available)} ({svmem.percent}%)",
-                        "inline": False
-                    },
-                    {
-                        "name": "Extra",
-                        "value": f"• SSD: {get_size(bot_drive_usage.used)} / {get_size(bot_drive_usage.total)} ({bot_drive_usage.percent}%)",
-                        "inline": False
                     }
+                    # {
+                    #     "name": "📊 Current Metrics",
+                    #     "value": f"• CPU: {psutil.cpu_percent()}%\n• Memory: {get_size(svmem.used)} / {get_size(svmem.available)} ({svmem.percent}%)",
+                    #     "inline": False
+                    # },
+                    # {
+                    #     "name": "Extra",
+                    #     "value": f"• SSD: {get_size(bot_drive_usage.used)} / {get_size(bot_drive_usage.total)} ({bot_drive_usage.percent}%)",
+                    #     "inline": False
+                    # }
                 ]
             )
 
             embed.set_footer(text=f"Last updated: {datetime.datetime.now().strftime('%d/%m/%Y, %H:%M')}")
             embed.timestamp = datetime.datetime.utcnow()
 
-            await last_message.edit(
+            await status_message.edit(
                 embed=embed
             )
             embed.set_footer(text=f"Last updated: {datetime.datetime.now().strftime('%d/%m/%Y, %H:%M')}")
             embed.timestamp = datetime.datetime.utcnow()
 
-            await last_message.edit(content="",embed=embed)
+            await status_message.edit(content="",embed=embed)
         print("XwX")
 
         await super().close()

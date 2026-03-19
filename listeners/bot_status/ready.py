@@ -1,12 +1,12 @@
-import psutil
+# import psutil
 import asyncio
 import discord
-import platform
+# import platform
 
 from datetime import datetime
 from discord.ext import commands
 from utils.discordbot import Bot
-from utils.database import Database
+# from utils.database import Database
 from utils.semifunc import SemiFunc
 
 def get_size(bytes, suffix="B"):
@@ -26,22 +26,27 @@ async def change_message(bot: Bot):
         test_server = bot.get_guild(1480087423433052242)
         status_channel = test_server.get_channel(1482618083263643698)
 
-        last_message = await status_channel.fetch_message(1482633940039630869)
-                
-        if last_message != None:
-            uname = platform.uname()
-            svmem = psutil.virtual_memory()
-            node_name = uname.node
+        status_message = await status_channel.fetch_message(1482633940039630869)
+        
+        if bot.user.id == 1482861019582693507:
+            status_message = await status_channel.fetch_message(1483989253045358602)
 
-            bot_drive = None
-            bot_drive_usage = None
-            for i, part in enumerate(psutil.disk_partitions()):
-                if part.mountpoint.startswith("D"):
-                    bot_drive = part
-                    bot_drive_usage = psutil.disk_usage(part.mountpoint)
+        ## no more other
+        if status_message != None:
+            # uname = platform.uname()
+            # svmem = psutil.virtual_memory()
+            # node_name = uname.node
+
+            # bot_drive = None
+            # bot_drive_usage = None
+            # for i, part in enumerate(psutil.disk_partitions()):
+            #     if part.mountpoint.startswith("D"):
+            #         bot_drive = part
+            #         bot_drive_usage = psutil.disk_usage(part.mountpoint)
 
             embed = bot.create_embed(
-                f"🖥️ {node_name} | STATUS",
+                # 🖥️ {node_name} | STATUS
+                f"🖥️ {bot.user.display_name} | STATUS",
                 description="Updates every minute.\n\n",
                 color=discord.Color.green(),
                 fields=[
@@ -49,24 +54,24 @@ async def change_message(bot: Bot):
                         "name": "🟢 Status",
                         "value": "Online",
                         "inline": True
-                    },
-                    {
-                        "name": "📊 Current Metrics",
-                        "value": f"• CPU: {psutil.cpu_percent()}%\n• Memory: {get_size(svmem.used)} / {get_size(svmem.available)} ({svmem.percent}%)",
-                        "inline": False
-                    },
-                    {
-                        "name": "Extra",
-                        "value": f"• SSD: {get_size(bot_drive_usage.used)} / {get_size(bot_drive_usage.total)} ({bot_drive_usage.percent}%)",
-                        "inline": False
                     }
+                    # {
+                    #     "name": "📊 Current Metrics",
+                    #     "value": f"• CPU: {psutil.cpu_percent()}%\n• Memory: {get_size(svmem.used)} / {get_size(svmem.available)} ({svmem.percent}%)",
+                    #     "inline": False
+                    # },
+                    # {
+                    #     "name": "Extra",
+                    #     "value": f"• SSD: {get_size(bot_drive_usage.used)} / {get_size(bot_drive_usage.total)} ({bot_drive_usage.percent}%)",
+                    #     "inline": False
+                    # }
                 ]
             )
 
             embed.set_footer(text=f"Last updated: {datetime.now().strftime('%d/%m/%Y, %H:%M')}")
             embed.timestamp = datetime.utcnow()
 
-            await last_message.edit(
+            await status_message.edit(
                 embed=embed
             )
 
@@ -83,7 +88,7 @@ class BotStatus(commands.Cog):
         self.status_check = False
 
     @commands.Cog.listener()
-    async def on_connect(self):
+    async def on_ready(self):
         if self.status_check == False:
             self.status_check = True
 

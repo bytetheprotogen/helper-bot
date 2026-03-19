@@ -12,8 +12,18 @@ class Announce(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="announce", description="Send a message to a channel as a embed")
+    @commands.hybrid_command(name="announce")
     async def announce(self, ctx: Context, channel: discord.TextChannel, *, message: str):
+        """
+        Send a message to a channel as a embed
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        message: str
+            The description of the embed
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return

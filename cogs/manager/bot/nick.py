@@ -12,8 +12,18 @@ class Nick(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="nick", description="Set the bot's nickname")
+    @commands.hybrid_command(name="nick")
     async def nick(self, ctx: Context, *, new_nick: str):
+        """
+        Set the bot's nickname
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        new_nick: str
+            The nickname to change to for the bot
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return

@@ -14,8 +14,20 @@ class kick(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="kick", description="Kick a user!")
-    async def kick(self, ctx: Context, user: discord.Member = None, *, reason: str = "No reason provided."):
+    @commands.hybrid_command(name="kick")
+    async def kick(self, ctx: Context, user: discord.Member, *, reason: str = "No reason provided."):
+        """
+        Kick a user
+        
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        user: discord.Member
+            The user to kick
+        reason: str
+            The reason to kick them for
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return

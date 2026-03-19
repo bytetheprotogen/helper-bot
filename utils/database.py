@@ -1,73 +1,87 @@
 import os
+import asyncio
 import sqlite3
+import discord
+
+from datetime import datetime
+from utils.discordbot import Bot
 
 databases = [
     "afk",
-    "banished"
+    "banished",
+    "userdata"
 ]
 
 class Database():
-    def __init__(*args, **kargs):
+    def __init__(cls, *args, **kargs):
         super().__init__(*args, **kargs)
         
+    @classmethod
+    def init(cls):
+        ## Create databases
+        if not os.path.exists(f"data"):
+            os.mkdir("data")
+        
+        # User Data
+        if not os.path.exists(f"data/user_data.db"):
+            usr_conn = sqlite3.connect(f"data/user_data.db")
+
+            usr_conn.execute(f"CREATE TABLE afk_users (user_id INT, name TEXT, message TEXT, since TEXT)")
+            usr_conn.execute(f"CREATE TABLE cooldown (user_id INT, since TEXT)")
+            usr_conn.execute(f"CREATE TABLE user_data (user_id INT, alise TEXT, job TEXT, tokens INT, wallet INT, bank INT)")
+
+            usr_conn.close()
+
+        # Banished
+        if not os.path.exists(f"data/banished.db"):
+            ban_conn = sqlite3.connect(f"data/banished.db")
+            ban_cursor = ban_conn.cursor()
+
+            ban_cursor.execute(f"CREATE TABLE banished_ids (user_id INT)")
+            ban_cursor.execute(f"CREATE TABLE banished_words_bypasses (bypass TEXT)")
+            ban_cursor.execute(f"CREATE TABLE banished_flagmsg (word TEXT)")
+            ban_cursor.execute(f"CREATE TABLE banished_words_noignore (word TEXT, message TEXT)")
+            ban_cursor.execute(f"CREATE TABLE banished_words (word TEXT, message TEXT)")
+
+            ban_conn.close()
+
+        cls.banished_conn = sqlite3.connect(f"data/banished.db", timeout=30)
+        cls.userdata_conn = sqlite3.connect(f"data/user_data.db", timeout=30)
+        
+        cls.banished_conn.execute("PRAGMA journal_mode=WAL;")
+        cls.userdata_conn.execute("PRAGMA journal_mode=WAL;")
+
+
+    banished_conn = None
+    userdata_conn = None
+
+    write_lock = asyncio.Lock()
+
     def create_databases(logger):
-        for database in databases:
-            doStuff = True
-
-            if os.path.exists(f"misc/{database}.db"):
-                doStuff = False
-            
-            conn = sqlite3.connect(f"misc/{database}.db")
-
-            if database == "afk":
-                if doStuff:
-                    cursor = conn.cursor()
-                
-                    cursor.execute(f"CREATE TABLE users (name TEXT, user_id INT, return_message BOOL, message TEXT, since TEXT)")
-                    conn.commit()
-                conn.close()
-            elif database == "banished":
-                if doStuff:
-                    cursor = conn.cursor()
-                
-                    cursor.execute(f"CREATE TABLE banished_ids (user_id INT)")
-                    cursor.execute(f"CREATE TABLE banished_words_bypasses (bypass TEXT)")
-                    cursor.execute(f"CREATE TABLE banished_flagmsg (word TEXT)")
-                    cursor.execute(f"CREATE TABLE banished_words_noignore (word TEXT, message TEXT)")
-                    cursor.execute(f"CREATE TABLE banished_words (word TEXT, message TEXT)")
-                    conn.commit()
-                conn.close()
-            else:
-                if doStuff:
-                    conn.close()
+        print("Removed(?)")
 
     def get_afks():
-        conn = sqlite3.connect(f"misc/afk.db")
-        cursor = conn.cursor()
+        cursor = Database.userdata_conn.cursor()
 
-        cursor.execute("SELECT * FROM users")
-        usersRaw = cursor.fetchall()
-
-        conn.close()
+        cursor.execute("SELECT * FROM afk_users")
+        users_raw = cursor.fetchall()
 
         result = {
             "users": []
         }
 
-        for user in usersRaw:
+        for user in users_raw:
             result['users'].append({
-                'name': user[0],
-                'user_id': user[1],
-                'return_message': user[2],
-                'message': user[3],
-                'since': user[4]
+                'user_id': user[0],
+                'name': user[1],
+                'message': user[2],
+                'since': user[3]
             })
 
         return result
     
     def get_banished():
-        conn = sqlite3.connect(f"misc/banished.db")
-        cursor = conn.cursor()
+        cursor = Database.banished_conn.cursor()
 
         cursor.execute("SELECT * FROM banished_ids")
         resultBanishedIds = cursor.fetchall()
@@ -83,8 +97,6 @@ class Database():
 
         cursor.execute("SELECT * FROM banished_words")
         resultBanishedWordsRaw = cursor.fetchall()
-
-        conn.close()
 
         result = {
             "ids": [],
@@ -107,22 +119,3 @@ class Database():
             result["words"][banished[0]] = banished[1]
         
         return result
-
-
-    
-    # def create_database(logger, filename: str, table_data: {}):
-    #     path = os.path.abspath(f"data/{filename}.db")
-    #     if os.path.exists(path):
-    #         logger.info(f"The database with the file name {filename}.db in data already exists.")
-    #     else:
-    #         conn = sqlite3.connect(path)
-
-    #         if len(table_data) > 0:
-    #             cursor = conn.cursor()
-    #             for data in table_data:
-    #                 print(data)
-    #                 cursor.execute(f"CREATE TABLE {table_data[data]['table_name']} {table_data[data]['table_values']}")
-    #                 conn.commit()
-
-    #         conn.close()
-    

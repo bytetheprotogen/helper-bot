@@ -10,8 +10,18 @@ class explode(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="explode", description="Send someone to the explodinator!")
+    @commands.hybrid_command(name="explode")
     async def explode(self, ctx: Context, user: discord.Member):
+        """
+        Send someone to the explodinator!
+        
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        user:
+            The user to send there
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return

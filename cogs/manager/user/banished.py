@@ -13,8 +13,18 @@ class Banished(commands.Cog):
         self.bot: Bot = bot
         
     @commands.guild_only()
-    @commands.hybrid_command(name="addbanisheduser", description="Add a user to the Banished User ID list.")
+    @commands.hybrid_command(name="addbanisheduser")
     async def addbanisheduser(self, ctx: Context, id: int):
+        """
+        Add a user to the Banished User ID list.
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        id: int
+            The user id to add to the banished user id list
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
@@ -23,8 +33,7 @@ class Banished(commands.Cog):
             await ctx.reply("That command is owners only.")
             return
         
-        path = files.get_filepath("banished", "db")
-        conn = sqlite3.connect(path)
+        conn = Database.banished_conn
         cursor = conn.cursor()
 
         cursor.execute("SELECT * FROM banished_ids")
@@ -47,8 +56,18 @@ class Banished(commands.Cog):
         conn.close()
         
     @commands.guild_only()
-    @commands.hybrid_command(name="addbanishedbypass", description="Add something to banished word bypasses")
+    @commands.hybrid_command(name="addbanishedbypass")
     async def addbanishedbypass(self, ctx: Context, bypass: str):
+        """
+        Add something to banished word bypasses
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        bypass: str
+            The bypass to add (HAS TO HAVE no spaces AND HAS TO BE lower case)
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
@@ -57,8 +76,7 @@ class Banished(commands.Cog):
             await ctx.reply("That command is owners only.")
             return
         
-        path = files.get_filepath("banished", "db")
-        conn = sqlite3.connect(path)
+        conn = Database.banished_conn
         cursor = conn.cursor()
 
         cursor.execute("SELECT * FROM banished_words_bypasses")
@@ -81,8 +99,18 @@ class Banished(commands.Cog):
         conn.close()
 
     @commands.guild_only()
-    @commands.hybrid_command(name="addbanishedflag", description="Add something to banished word flags")
+    @commands.hybrid_command(name="addbanishedflag")
     async def addbanishedflag(self, ctx: Context, flag: str):
+        """
+        Add something to banished word flags
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        flag: str
+            The flag message (HAS TO HAVE no spaces AND HAS TO BE lower case)
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
@@ -91,8 +119,7 @@ class Banished(commands.Cog):
             await ctx.reply("That command is owners only.")
             return
         
-        path = files.get_filepath("banished", "db")
-        conn = sqlite3.connect(path)
+        conn = Database.banished_conn
         cursor = conn.cursor()
 
         cursor.execute("SELECT * FROM banished_flagmsg")
@@ -115,8 +142,20 @@ class Banished(commands.Cog):
         conn.close()
 
     @commands.guild_only()
-    @commands.hybrid_command(name="addbanishedwordall", description="Add something to banished word for everyone")
+    @commands.hybrid_command(name="addbanishedwordall")
     async def addbanishedwordall(self, ctx: Context, word: str, *, message: str):
+        """
+        Add something to banished word for everyone
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        word: str
+            The word (HAS TO HAVE no spaces AND HAS TO BE lower case)
+        message: str
+            The message that's sent when a user says that word
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
@@ -125,8 +164,7 @@ class Banished(commands.Cog):
             await ctx.reply("That command is owners only.")
             return
         
-        path = files.get_filepath("banished", "db")
-        conn = sqlite3.connect(path)
+        conn = Database.banished_conn
         cursor = conn.cursor()
 
         cursor.execute("SELECT * FROM banished_words_noignore")
@@ -149,8 +187,20 @@ class Banished(commands.Cog):
         conn.close()
         
     @commands.guild_only()
-    @commands.hybrid_command(name="addbanishedword", description="Add something to banished words")
+    @commands.hybrid_command(name="addbanishedword")
     async def addbanishedword(self, ctx: Context, word: str, *, message: str):
+        """
+        Add something to banished words
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        word: str
+            The word (HAS TO HAVE no spaces AND HAS BE TO lower case)
+        message: str
+            The message that's sent when a user says the word.
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
@@ -159,8 +209,7 @@ class Banished(commands.Cog):
             await ctx.reply("That command is owners only.")
             return
         
-        path = files.get_filepath("banished", "db")
-        conn = sqlite3.connect(path)
+        conn = Database.banished_conn
         cursor = conn.cursor()
 
         cursor.execute("SELECT * FROM banished_words")
@@ -181,22 +230,6 @@ class Banished(commands.Cog):
                 await ctx.reply(f"Unable to add `{word}` with the message `{message}` to banished words.\n`{e}`")
 
         conn.close()
-        
-
-
-
-    # @commands.guild_only()
-    # @commands.hybrid_command(name="testbanished", description="Add a user to the Banished User ID list.")
-    # async def testbanished(self, ctx: Context):
-    #     if SemiFunc.command_disabled(ctx):
-    #         await ctx.reply("That command is currently disabled.")
-    #         return
-        
-    #     if not SemiFunc.can_use_command(ctx, ctx.author, "manager"):
-    #         await ctx.reply("That command is owners only.")
-    #         return
-        
-    #     await ctx.reply(f"{Database.get_banished()}")
-
+    
 async def setup(bot):
     await bot.add_cog(Banished(bot))

@@ -33,8 +33,22 @@ class Staff(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="mute", description="Mute a user!")
-    async def mute(self, ctx: Context, user: discord.Member = None, duration: str = "5m", *, reason: str = "No reason provided."):
+    @commands.hybrid_command(name="mute")
+    async def mute(self, ctx: Context, user: discord.Member, duration: str = "5m", *, reason: str = "No reason provided."):
+        """
+        Mute a user (28d MAX DURATION)
+        
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        user: discord.Member
+            The user to mute
+        duration: str
+            The duration to mute them for (1s, 5m, 5h, 5d.)
+        reason: str
+            The reason to mute them for
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
@@ -55,8 +69,17 @@ class Staff(commands.Cog):
                 return
             
             await SemiFunc.log_command_use(self.bot, ctx.author, ctx.message.content, ctx.interaction, ctx)
-        
-        
+            
+            if duration.lower().endswith("y"):
+                duration.replace("y", "m")
+            elif duration.lower().endswith("years"):
+                duration.replace("years", "m")
+
+            if reason.lower().find("years") >= 0:
+                reason = "No reason provided."
+                duration = parase_duration("10m")
+                
+
             errors = []
 
             if parase_duration(duration) > 2419200:

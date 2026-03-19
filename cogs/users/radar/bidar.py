@@ -13,8 +13,18 @@ class bidar(commands.Cog):
     # This radar command is stolen from pride bot
     # https://github.com/Pridebot-Systems/Pridebot/blob/main/src/commands/fun/
     @commands.guild_only()
-    @commands.hybrid_command(name="bidar", description="See how bi someone is!")
+    @commands.hybrid_command(name="bidar")
     async def bidar(self, ctx: Context, user: discord.Member):
+        """
+        See how bi someone is!
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        user: discord.Member
+            The user to use the radar on
+        """
         if user:
             if user.bot:
                 await ctx.reply("Not able to use radar commads on bots.")

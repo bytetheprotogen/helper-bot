@@ -11,8 +11,18 @@ class eightball(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="8ball", description="The magic 8ball")
+    @commands.hybrid_command(name="8ball")
     async def eightball(self, ctx: Context, *, question: str):
+        """
+        The magic 8ball
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        question: str
+            The question to ask the magic 8ball
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return

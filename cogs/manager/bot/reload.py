@@ -14,67 +14,129 @@ class CogStuff(commands.Cog):
 
     ## events
     @commands.guild_only()
-    @commands.hybrid_command(name="reloadlistener", description="And now I'll wave, so long! -- Placeholder")
-    async def reloadlistener(self, ctx: Context, what: str, sub: str, name: str):
+    @commands.hybrid_command(name="reloadlistener")
+    async def reloadlistener(self, ctx: Context, what: str, name: str):
+        """
+        And now I'll wave, so long! -- Placeholder
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        what: str
+            The category the listener is in (e.g audit_logs)
+        name: str
+            The file name of the listener (e.g message_deleted)
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
         
         if not SemiFunc.can_use_command(ctx, ctx.author, "manager"):
-            await ctx.reply("That command is owners only.")
-            return
+            if SemiFunc.is_command_exception(ctx.author, "reload"):
+                pass
+            else:
+                await ctx.reply("That command is only usable by owners and manager.")
+                return
         
         try:
-            await self.bot.reload_extension(f"listener.{what}.{sub}.{name}")
-            await ctx.reply(f"Reloaded `listener.{what}.{sub}.{name}`")
+            await self.bot.reload_extension(f"listeners.{what}.{name}")
+            await ctx.reply(f"Reloaded `listeners.{what}.{name}`")
         except Exception as e:
             await ctx.reply(f"`{e}`")
 
     @commands.guild_only()
-    @commands.hybrid_command(name="loadlistener", description="And now I'll wave, so long! -- Placeholder")
-    async def loadlistener(self, ctx: Context, what: str, sub: str, name: str):
+    @commands.hybrid_command(name="loadlistener")
+    async def loadlistener(self, ctx: Context, what: str, name: str):
+        """
+        And now I'll wave, so long! -- Placeholder
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        what: str
+            The category the listener is in (e.g audit_logs)
+        name: str
+            The file name of the listener (e.g message_deleted)
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
         
         if not SemiFunc.can_use_command(ctx, ctx.author, "manager"):
-            await ctx.reply("That command is owners only.")
-            return
+            if SemiFunc.is_command_exception(ctx.author, "reload"):
+                pass
+            else:
+                await ctx.reply("That command is only usable by owners and manager.")
+                return
         
         try:
-            await self.bot.load_extension(f"listener.{what}.{sub}.{name}")
-            await ctx.reply(f"Loaded `listener.{what}.{sub}.{name}`")
+            await self.bot.load_extension(f"listeners.{what}.{name}")
+            await ctx.reply(f"Loaded `listeners.{what}.{name}`")
         except Exception as e:
             await ctx.reply(f"`{e}`")
 
     @commands.guild_only()
-    @commands.hybrid_command(name="unloadlistener", description="And now I'll wave, so long! -- Placeholder")
-    async def unloadlistener(self, ctx: Context, what: str, sub: str, name: str):
+    @commands.hybrid_command(name="unloadlistener")
+    async def unloadlistener(self, ctx: Context, what: str, name: str):
+        """
+        And now I'll wave, so long! -- Placeholder
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        what: str
+            The category the listener is in (e.g audit_logs)
+        name: str
+            The file name of the listener (e.g message_deleted)
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
         
         if not SemiFunc.can_use_command(ctx, ctx.author, "manager"):
-            await ctx.reply("That command is owners only.")
-            return
+            if SemiFunc.is_command_exception(ctx.author, "reload"):
+                pass
+            else:
+                await ctx.reply("That command is only usable by owners and manager.")
+                return
         
         try:
-            await self.bot.unload_extension(f"listener.{what}.{sub}.{name}")
-            await ctx.reply(f"Unloaded `listener.{what}.{sub}.{name}`")
+            await self.bot.unload_extension(f"listeners.{what}.{name}")
+            await ctx.reply(f"Unloaded `listeners.{what}.{name}`")
         except Exception as e:
             await ctx.reply(f"`{e}`")
 
     ## Commands
     @commands.guild_only()
-    @commands.hybrid_command(name="reload", description="And now I'll wave, so long! -- Placeholder")
+    @commands.hybrid_command(name="reload")
     async def reload(self, ctx: Context, what: str, sub: str, name: str):
+        """
+        And now I'll wave, so long! -- Placeholder
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        what: str
+            The category the command is in (e.g staff)
+        sub: str
+            The sub folder it's in (e.g silly)
+        name: str
+            The file name of the command (e.g cutinate)
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
         
         if not SemiFunc.can_use_command(ctx, ctx.author, "manager"):
-            await ctx.reply("That command is owners only.")
-            return
+            if SemiFunc.is_command_exception(ctx.author, "reload"):
+                pass
+            else:
+                await ctx.reply("That command is only usable by owners and manager.")
+                return
         
         try:
             await self.bot.reload_extension(f"cogs.{what}.{sub}.{name}")
@@ -83,15 +145,32 @@ class CogStuff(commands.Cog):
             await ctx.reply(f"`{e}`")
 
     @commands.guild_only()
-    @commands.hybrid_command(name="load", description="And now I'll wave, so long! -- Placeholder")
+    @commands.hybrid_command(name="load")
     async def load(self, ctx: Context, what: str, sub: str, name: str):
+        """
+        And now I'll wave, so long! -- Placeholder
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        what: str
+            The category the command is in (e.g staff)
+        sub: str
+            The sub folder it's in (e.g silly)
+        name: str
+            The file name of the command (e.g cutinate)
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
         
         if not SemiFunc.can_use_command(ctx, ctx.author, "manager"):
-            await ctx.reply("That command is owners only.")
-            return
+            if SemiFunc.is_command_exception(ctx.author, "reload"):
+                pass
+            else:
+                await ctx.reply("That command is only usable by owners and manager.")
+                return
         
         try:
             await self.bot.load_extension(f"cogs.{what}.{sub}.{name}")
@@ -100,15 +179,32 @@ class CogStuff(commands.Cog):
             await ctx.reply(f"`{e}`")
 
     @commands.guild_only()
-    @commands.hybrid_command(name="unload", description="And now I'll wave, so long! -- Placeholder")
+    @commands.hybrid_command(name="unload")
     async def unload(self, ctx: Context, what: str, sub: str, name: str):
+        """
+        Unload a command.
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        what: str
+            The category the command is in (e.g staff)
+        sub: str
+            The sub folder it's in (e.g silly)
+        name: str
+            The file name of the command (e.g cutinate)
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
         
         if not SemiFunc.can_use_command(ctx, ctx.author, "manager"):
-            await ctx.reply("That command is owners only.")
-            return
+            if SemiFunc.is_command_exception(ctx.author, "reload"):
+                pass
+            else:
+                await ctx.reply("That command is only usable by owners and manager.")
+                return
         
         try:
             await self.bot.unload_extension(f"cogs.{what}.{sub}.{name}")
@@ -117,15 +213,26 @@ class CogStuff(commands.Cog):
             await ctx.reply(f"`{e}`")
 
     @commands.guild_only()
-    @commands.hybrid_command(name="reloadall", description="And now I'll wave, so long! -- Placeholder")
+    @commands.hybrid_command(name="reloadall")
     async def reloadall(self, ctx: Context):
+        """
+        Reload all listeners and commands.
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
         
         if not SemiFunc.can_use_command(ctx, ctx.author, "manager"):
-            await ctx.reply("That command is owners only.")
-            return
+            if SemiFunc.is_command_exception(ctx.author, "reload"):
+                pass
+            else:
+                await ctx.reply("That command is only usable by owners and manager.")
+                return
         
 
         success = []

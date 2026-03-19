@@ -2,6 +2,7 @@ import random
 import asyncio
 import discord
 
+from aiohttp import client_exceptions
 from discord.ext import commands
 from utils.discordbot import Bot
 
@@ -39,7 +40,12 @@ async def change_status(bot: Bot):
             
     # print(f"Change status to: {rand_status['message']}")
     prev_status.append(rand_status['message'])
-    await bot.change_presence(status=discord.Status.online, activity=activity)
+    try:
+        await bot.change_presence(status=discord.Status.online, activity=activity)
+    except client_exceptions.ClientConnectorDNSError as e:
+        bot.logger.warn(f"Bot random status got ClientConnectorDNSError. Message: {e}")
+    except discord.errors.DiscordException as e:
+        bot.logger.warn(f"Bot random status got DiscordException. Message: {e}")
 
 async def status_loop(bot):
     await bot.wait_until_ready()
@@ -56,7 +62,7 @@ class Status(commands.Cog):
         self.status_rand_connected = False
 
     @commands.Cog.listener()
-    async def on_connect(self):
+    async def on_ready(self):
         if self.status_rand_connected == False:
             # 09/03/2026 - Random statuses
             self.status_rand_connected = True

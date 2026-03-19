@@ -10,8 +10,18 @@ class unsmolinate(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="unsmolinate", description="Take someone away from the smolinator!")
+    @commands.hybrid_command(name="unsmolinate")
     async def unsmolinate(self, ctx: Context, user: discord.Member):
+        """
+        Take someone away form the smolinator!
+        
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        user:
+            The user to take away from there
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return

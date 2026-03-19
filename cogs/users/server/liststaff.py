@@ -11,8 +11,16 @@ class liststaff(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="liststaff", description="Display a list of the server staff.")
+    @commands.hybrid_command(name="liststaff")
     async def liststaff(self, ctx: Context):
+        """
+        Display a list of the server staff
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        """
         administrator_id = SemiFunc.get_role_id(ctx, "administrator")
         event_manager_id = SemiFunc.get_role_id(ctx, "event_manager")
         moderator_id = SemiFunc.get_role_id(ctx, "moderator")
