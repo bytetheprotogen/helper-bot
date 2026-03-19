@@ -22,5 +22,7 @@ misc/afk.db
 logs/*.log
 logs/errors/*
 
+* - Copy*
+
 assets/join_message_images/*.*
 assets/profile_pictures/*.*
