@@ -33,8 +33,7 @@ class Banished(commands.Cog):
             await ctx.reply("That command is owners only.")
             return
         
-        conn = Database.banished_conn
-        cursor = conn.cursor()
+        cursor = Database.banished_conn.cursor()
 
         cursor.execute("SELECT * FROM banished_ids")
         resultRaw = cursor.fetchall()
@@ -48,12 +47,10 @@ class Banished(commands.Cog):
         else:
             try:
                 cursor.execute(f"INSERT INTO banished_ids VALUES ({id})")
-                conn.commit()
+                Database.banished_conn.commit()
                 await ctx.reply(f"Successfully added the user id {id} to banished user ids!", ephemeral=True)
             except Exception as e:
                 await ctx.reply(f"Unable to add the user id {id} to banished user ids.\n`{e}`")
-
-        conn.close()
         
     @commands.guild_only()
     @commands.hybrid_command(name="addbanishedbypass")
@@ -76,8 +73,7 @@ class Banished(commands.Cog):
             await ctx.reply("That command is owners only.")
             return
         
-        conn = Database.banished_conn
-        cursor = conn.cursor()
+        cursor = Database.banished_conn.cursor()
 
         cursor.execute("SELECT * FROM banished_words_bypasses")
         resultRaw = cursor.fetchall()
@@ -91,12 +87,10 @@ class Banished(commands.Cog):
         else:
             try:
                 cursor.execute(f'INSERT INTO banished_words_bypasses VALUES ("{bypass}")')
-                conn.commit()
+                Database.banished_conn.commit()
                 await ctx.reply(f"Successfully added `{bypass}` to banished word bypasses!", ephemeral=True)
             except Exception as e:
                 await ctx.reply(f"Unable to add `{bypass}` to banished word bypasses.\n`{e}`")
-
-        conn.close()
 
     @commands.guild_only()
     @commands.hybrid_command(name="addbanishedflag")
@@ -119,8 +113,7 @@ class Banished(commands.Cog):
             await ctx.reply("That command is owners only.")
             return
         
-        conn = Database.banished_conn
-        cursor = conn.cursor()
+        cursor = Database.banished_conn.cursor()
 
         cursor.execute("SELECT * FROM banished_flagmsg")
         resultRaw = cursor.fetchall()
@@ -134,12 +127,10 @@ class Banished(commands.Cog):
         else:
             try:
                 cursor.execute(f'INSERT INTO banished_flagmsg VALUES ("{flag}")')
-                conn.commit()
+                Database.banished_conn.commit()
                 await ctx.reply(f"Successfully added `{flag}` to banished word flags!", ephemeral=True)
             except Exception as e:
                 await ctx.reply(f"Unable to add `{flag}` to banished word flags.\n`{e}`")
-
-        conn.close()
 
     @commands.guild_only()
     @commands.hybrid_command(name="addbanishedwordall")
@@ -164,8 +155,7 @@ class Banished(commands.Cog):
             await ctx.reply("That command is owners only.")
             return
         
-        conn = Database.banished_conn
-        cursor = conn.cursor()
+        cursor = Database.banished_conn.cursor()
 
         cursor.execute("SELECT * FROM banished_words_noignore")
         resultRaw = cursor.fetchall()
@@ -179,12 +169,10 @@ class Banished(commands.Cog):
         else:
             try:
                 cursor.execute(f'INSERT INTO banished_words_noignore VALUES ("{word}", "{message}")')
-                conn.commit()
+                Database.banished_conn.commit()
                 await ctx.reply(f"Successfully added `{word}` with the message `{message}` to banished words for everyone!", ephemeral=True)
             except Exception as e:
                 await ctx.reply(f"Unable to add `{word}` to banished words for everyone.\n`{e}`")
-
-        conn.close()
         
     @commands.guild_only()
     @commands.hybrid_command(name="addbanishedword")
@@ -209,8 +197,7 @@ class Banished(commands.Cog):
             await ctx.reply("That command is owners only.")
             return
         
-        conn = Database.banished_conn
-        cursor = conn.cursor()
+        cursor = Database.banished_conn.cursor()
 
         cursor.execute("SELECT * FROM banished_words")
         resultRaw = cursor.fetchall()
@@ -224,12 +211,10 @@ class Banished(commands.Cog):
         else:
             try:
                 cursor.execute(f'INSERT INTO banished_words VALUES ("{word}", "{message}")')
-                conn.commit()
+                Database.banished_conn.commit()
                 await ctx.reply(f"Successfully added `{word}` with the message `{message}` to banished words!", ephemeral=True)
             except Exception as e:
                 await ctx.reply(f"Unable to add `{word}` with the message `{message}` to banished words.\n`{e}`")
-
-        conn.close()
     
 async def setup(bot):
     await bot.add_cog(Banished(bot))

@@ -81,7 +81,7 @@ class OnMemberUpdated(commands.Cog):
 
                 await gen_chat.send(content=message, file=discord.File(f"assets/join_message_images/{member.name}.png"))
                 
-                # User @snowy 2.0 left from ー〔friendly pikes〕ー
+                # User @snowy 2.0 left from {server_name}
                 # hope you had a wonderful stay sorry that you had to leave
 
             # Timeout

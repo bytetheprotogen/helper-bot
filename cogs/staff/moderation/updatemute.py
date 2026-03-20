@@ -15,7 +15,7 @@ class updatemute(commands.Cog):
 
     @commands.guild_only()
     @commands.hybrid_command(name="updatemute")
-    async def updatemute(self, ctx: Context, user: discord.Member = None, duration: str = "5m"):
+    async def updatemute(self, ctx: Context, user: discord.Member, duration: str = "5m"):
         """
         Update a user's mute
 

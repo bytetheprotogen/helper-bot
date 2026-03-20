@@ -15,7 +15,7 @@ class unmute(commands.Cog):
 
     @commands.guild_only()
     @commands.hybrid_command(name="unmute")
-    async def unmute(self, ctx: Context, user: discord.Member = None, *, reason: str = "No reason provided."):
+    async def unmute(self, ctx: Context, user: discord.Member, *, reason: str = "No reason provided."):
         """
         Unmute a user
 

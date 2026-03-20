@@ -36,10 +36,10 @@ class Nick(commands.Cog):
         
         try:
             await self.bot.user.edit(nick=new_nick)
-            await ctx.send(f"Changed Friendly Pikes Helper bot's nickname to `{new_nick}`")
+            await ctx.send(f"Changed Fluffy Helper bot's nickname to `{new_nick}`")
         except Exception as e:
             self.bot.logger.warn(e)
-            await ctx.send(f"Unable to change Friendly Pikes Helper bot's nickname. \nError:\n`{e}`")
+            await ctx.send(f"Unable to change Fluffy Helper bot's nickname. \nError:\n`{e}`")
 
 
 async def setup(bot):

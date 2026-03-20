@@ -14,8 +14,8 @@ class JoinMessage(commands.Cog):
     async def on_member_join(self, member: discord.Member):
         welcome_channel = member.guild.get_channel( SemiFunc.get_channel_id(member, "welcome") )
 
-        if files.get_config_entry("join_message_enabled"):
-            await welcome_channel.send(f"Hello {member.mention}! Welcome to the server! :3")
+        # if files.get_config_entry("join_message_enabled"):
+        await welcome_channel.send(f"Hello {member.mention}! Welcome to the server! :3")
 
 async def setup(bot):
     await bot.add_cog(JoinMessage(bot))

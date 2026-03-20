@@ -43,9 +43,11 @@ async def change_status(bot: Bot):
     try:
         await bot.change_presence(status=discord.Status.online, activity=activity)
     except client_exceptions.ClientConnectorDNSError as e:
-        bot.logger.warn(f"Bot random status got ClientConnectorDNSError. Message: {e}")
+        bot.logger.warn(f"on__ready.status got ClientConnectorDNSError. Message: {e}")
     except discord.errors.DiscordException as e:
-        bot.logger.warn(f"Bot random status got DiscordException. Message: {e}")
+        bot.logger.warn(f"on__ready.status got DiscordException. Message: {e}")
+    except discord.errors.DiscordServerError as e:
+        bot.logger.warn(f"on__ready.status got discord.errors.DiscordServerError. Message: {e}")
 
 async def status_loop(bot):
     await bot.wait_until_ready()

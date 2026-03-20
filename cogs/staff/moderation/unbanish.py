@@ -15,7 +15,7 @@ class unbanish(commands.Cog):
 
     @commands.guild_only()
     @commands.hybrid_command(name="unbanish")
-    async def unbanish(self, ctx: Context, user: discord.Member = None):
+    async def unbanish(self, ctx: Context, user: discord.Member, *, reason: str):
         """
         Unbanish a user!
         
@@ -25,6 +25,8 @@ class unbanish(commands.Cog):
             The context of the command invocation
         user: discord.Member
             The user to unbanish
+        reason: str
+            Why they got unbanished
         """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
