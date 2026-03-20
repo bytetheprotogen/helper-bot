@@ -17,28 +17,17 @@ class OnMemberJoin(commands.Cog):
         # Join Roles
         for rolea in join_roles:
             role = member.guild.get_role(join_roles[rolea])
-            canAdd = True
-            cantAddReason = None
-            if rolea == "bot":
-                if member.bot == True:
-                    role = member.guild.get_role(join_roles[rolea])
-                    await member.add_roles(role, reason="Join Roles")
-                    canAdd = False
-                else:
-                    cantAddReason = "User is not a bot"
-                    canAdd = False
             
-            if canAdd:
-                if role:
-                    await member.add_roles(role, reason="Join Roles")
-                else:
-                    self.bot.logger.warn(f"Cannot give {member.name} the role {rolea} as it doesn't exist!")
-            else:
+            if role:
+                # 18/03/2026 - Fixed givng bot role to users
+                can_give = True
+                if rolea == "bot" and member.bot == False:
+                    can_give = False
 
-                if cantAddReason != None:
-                    self.bot.logger.warn(f"Cannot give {member.name} the role {rolea}. Reason is: {cantAddReason}")
-                else:
-                    self.bot.logger.warn(f"Cannot give {member.name} the role {rolea}. Reason is unknown.")
+                if can_give:
+                    await member.add_roles(role, reason="Join Roles")
+            else:
+                self.bot.logger.warn(f"Cannot give {member.name} the role {rolea} as it doesn't exist!")
 
 async def setup(bot):
     await bot.add_cog(OnMemberJoin(bot))

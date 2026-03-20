@@ -11,8 +11,18 @@ class sillydar(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="sillydar", description="See how sillydar someone is!")
+    @commands.hybrid_command(name="sillydar")
     async def sillydar(self, ctx: Context, user: discord.Member):
+        """
+        See how silly someone is!
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        user: discord.Member
+            The user to use the radar on
+        """
         if user:
             if user.bot:
                 await ctx.reply("Not able to use radar commads on bots.")

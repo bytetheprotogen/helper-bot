@@ -16,7 +16,9 @@ async def change_status(bot: Bot):
         general_main = bot.get_channel(1414222708324958385)
         reaction = bot.get_emoji(1479235584127143978)
 
-        await general_main.send(content=f"<:{reaction.name}:{reaction.id}>")
+        # If general_main is none, don't send.. assume we are testing -w-
+        if general_main != None:
+            await general_main.send(content=f"<:{reaction.name}:{reaction.id}>")
 
 
 async def status_loop(bot):

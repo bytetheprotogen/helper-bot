@@ -14,8 +14,20 @@ class reply(commands.Cog):
         self.bot: Bot = bot
         
     @commands.guild_only()
-    @commands.hybrid_command(name="reply", description="Send a message to whatever as a reply to a message!")
+    @commands.hybrid_command(name="reply")
     async def reply(self, ctx: Context, channel: discord.TextChannel, message_id: str, *, message: str):
+        """
+        Send a message to whatever as a reply to a message!
+        
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        message_id: str
+            The message id of message to send whatever message to as a reply
+        message: str
+            The message to use as a reply to the message id
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return

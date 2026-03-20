@@ -39,7 +39,7 @@ class BanishMessage(commands.Cog):
 
                 if SemiFunc.can_use_command(msg, msg.author, "staff") == False:
                     
-                    # 1 - If a user is menitioned, and their userid has "67" in it, ignore
+                    # 1 - If a user is mentioned, and their userid has "67" in it, ignore
                     if len(msg.mentions) > 0:
                         for mention in msg.mentions:
                             if str(mention.id).find("67") >= 0:

@@ -10,8 +10,18 @@ class uncutinate(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="uncutinate", description="Take someone away from the cutinator!")
+    @commands.hybrid_command(name="uncutinate")
     async def uncutinate(self, ctx: Context, user: discord.Member):
+        """
+        Take someone away form the cutinator!
+        
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        user:
+            The user to take away from there
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return

@@ -14,8 +14,20 @@ class updatemute(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="updatemute", description="Update a user's mute!")
-    async def updatemute(self, ctx: Context, user: discord.Member = None, duration: str = "5m"):
+    @commands.hybrid_command(name="updatemute")
+    async def updatemute(self, ctx: Context, user: discord.Member, duration: str = "5m"):
+        """
+        Update a user's mute
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        user: discord.Member
+            The user to update a mute on
+        duration: str
+            The new duration (1s, 5m, 5h, 5d)
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return

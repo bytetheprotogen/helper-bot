@@ -75,13 +75,13 @@ class OnMemberUpdated(commands.Cog):
 
                 ## Pedal to the metal! Send it!
                 message = f"<@&{welcome_ping}>"
-                message = f"{message}\nWelcome {after.mention} to **{after.guild.name}!"
+                message = f"{message}\nWelcome {after.mention} to **{after.guild.name}**!"
                 message = f"{message}\nGet roles in <#1418954294656499773>"
                 message = f"{message}\n\nWe hope you'll have a wonderful stay here!"
 
                 await gen_chat.send(content=message, file=discord.File(f"assets/join_message_images/{member.name}.png"))
                 
-                # User @snowy 2.0 left from ー〔friendly pikes〕ー
+                # User @snowy 2.0 left from {server_name}
                 # hope you had a wonderful stay sorry that you had to leave
 
             # Timeout

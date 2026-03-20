@@ -10,7 +10,7 @@ def open_file(dir, filename, fileext):
     file = None
     filepath = os.path.abspath(f"{dir}/{filename}.{fileext}")
 
-    with open(filepath) as raw:
+    with open(filepath, 'r', encoding='utf8') as raw:
         file = json.loads(raw.read())
 
     return file

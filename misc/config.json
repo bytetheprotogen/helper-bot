@@ -1,7 +1,8 @@
 {
     "prefix": "?",
-    "server_name": "Friendly Pikes",
-    "bot_name": "Friendly Pikes Helper",
+    "server_name": "𝓣𝓱𝓮 𝓕𝓵𝓾𝓯𝓯𝔂 𝓒𝓸𝓷𝓬𝓸𝓾𝓻𝓼𝓮",
+    "bot_name": "Fluffy Helper",
+    "currency_name": "credits",
     
     "owners": [
         1262124659814695005,
@@ -45,6 +46,7 @@
         {"activity": "custom", "message": "Toccata and Fugue in D minor but metal is my favorite song"},
         {"activity": "custom", "message": "\"Can you run Doom?\" ..don't try me, of course I can play doom! Doom can be played on anything!"},
         {"activity": "custom", "message": "You know what that means... FISH-"},
-        {"activity": "custom", "message": "Fish"}
+        {"activity": "custom", "message": "Fish"},
+        {"activity": "custom", "message": "\"I forgot that you corrupted!\" Â¯\\_(ãƒ„)_/Â¯"}
     ]
 }

@@ -1,5 +1,6 @@
 import sqlite3
 
+from utils.database import Database
 from discord.ext import commands
 from discord.errors import *
 from discord.ext.commands.errors import *
@@ -14,8 +15,20 @@ class AFK(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="afk", description="Set your status to AFK!")
+    @commands.hybrid_command(name="afk")
     async def afk(self, ctx: Context, *, message: str = "Gone Fishin'", return_message: bool = True):
+        """
+        Set your status to AFK
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        message: str
+            The message you want to use
+        return_message: str
+            Toggle the return message (UNUSED)
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
@@ -40,8 +53,7 @@ class AFK(commands.Cog):
         if is_already_afk:
             await ctx.reply("Cannot change your status to AFK because you've already used ?afk or /afk. Did you mean to use ?afkupdate?")
         else:
-            conn = sqlite3.connect(f"misc/afk.db")
-            cursor = conn.cursor()
+            cursor = Database.userdata_conn.cursor()
             
             nick = ctx.author.display_name
             afkSince_createdat = ctx.message.created_at.strftime("%d/%m/%Y %H:%M")
@@ -52,9 +64,9 @@ class AFK(commands.Cog):
                 else:
                     nick = ctx.author.nick
 
-            cursor.execute(f'INSERT INTO users VALUES ("{nick}", {ctx.author.id}, {return_message}, "{message}", "{afkSince_createdat}")')
-            conn.commit()
-            conn.close()
+            cursor.execute(f'INSERT INTO afk_users VALUES ({ctx.author.id}, "{nick}", "{message}", "{afkSince_createdat}")')
+
+            Database.userdata_conn.commit()
 
             try:
                 await ctx.author.edit(nick=f"[AFK] {ctx.author.display_name}")
@@ -70,8 +82,20 @@ class AFK(commands.Cog):
         
         
     @commands.guild_only()
-    @commands.hybrid_command(name="afkupdate", description="Update your AFK status!")
+    @commands.hybrid_command(name="afkupdate")
     async def afkupdate(self, ctx: Context, *, message: str = "Gone Fishin'", return_message: bool = True):
+        """
+        Update your afk status
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        message: str
+            The new afk message you want to use
+        return_message: bool
+            Toggle the return message (UNUSED)
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
@@ -94,13 +118,12 @@ class AFK(commands.Cog):
                 is_already_afk = True
 
         if is_already_afk:
-            conn = sqlite3.connect(f"misc/afk.db")
-            cursor = conn.cursor()
+            cursor = Database.userdata_conn.cursor()
 
-            cursor.execute(f"UPDATE users SET message=?, return_message=? WHERE user_id = ?", (message, return_message, ctx.author.id))
+            cursor.execute(f"UPDATE afk_users SET message=? WHERE user_id = ?", (message, ctx.author.id))
+            await ctx.reply(f"I've set your AFK message to `{message}`")
 
-            conn.commit()
-            conn.close()
+            Database.userdata_conn.commit()
 
         else:
             await ctx.reply(f"Cannot set your AFK message because you've not used ?afk or /afk")

@@ -10,8 +10,18 @@ class cutinate(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="cutinate", description="Send someone to the cutinator!")
+    @commands.hybrid_command(name="cutinate")
     async def cutinate(self, ctx: Context, user: discord.Member):
+        """
+        Send someone to the _ator!
+        
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        user:
+            The user to send there
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return

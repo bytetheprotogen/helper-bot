@@ -1,6 +1,6 @@
-# Contributing to Friendly Pikes's Helper Bot
+# Contributing to Fluffy Concourse's Bot
 
-Many thanks to you for considering contributing to Friendly Pike's Helper Bot. Whether you're reporting a issue, suggesting a feature or submiting, fixing or optimising code, your help is greatly appreciated!
+Many thanks to you for considering contributing to Fluffy Concourse's Bot. Whether you're reporting a issue, suggesting a feature or submiting, fixing or optimising code, your help is greatly appreciated!
 <br>
 .. I know my code is really shitty but it works, so I'll consider you changes if you make any!
 
@@ -9,16 +9,16 @@ Many thanks to you for considering contributing to Friendly Pike's Helper Bot. W
 2. Clone the repo <br>
 Linux
 ```
-sh git clone htttps://github.com/friendly-pikes/helper-bot.git
+sh git clone https://github.com/fluffy-concourse/helper-bot-python-edition.git
 cd helper-bot
 ```
 Windows
 ```
-git clone htttps://github.com/friendly-pikes/helper-bot.git
+git clone https://github.com/fluffy-concourse/helper-bot-python-edition.git
 cd helper-bot
 ```
 
-3. Set up your evironment - Follow the setup guide in [SETUP_EVIRONMENT.md](htttps://github.com/friendly-pikes/helper-bot/blob/main/SETUP_EVIRONMENT).. or do what you want for your evironment.
+3. Set up your evironment - Follow the setup guide in [SETUP_EVIRONMENT.md](https://github.com/fluffy-concourse/helper-bot-python-edition/blob/main/SETUP_EVIRONMENT).. or do what you want for your evironment.
 4. Create a new branch <br>
 Linux: ```sh git checkout -b feature-name``` <br>
 Windows: ```git checkout -b feature-name```

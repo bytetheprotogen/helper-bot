@@ -14,8 +14,20 @@ class repeat(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="repeat", description="Send a message to whatever channel!")
+    @commands.hybrid_command(name="repeat")
     async def repeat(self, ctx: Context, channel: discord.TextChannel, message: str):
+        """
+        Send a message to whatever channel!
+        
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        channel: discord.TextChannel
+            The channel to send the message to
+        message: str
+            The message to send to the channel
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return

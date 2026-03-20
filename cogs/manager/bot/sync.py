@@ -16,8 +16,16 @@ class Sync(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="sync", description="Sync the bot's commands")
+    @commands.hybrid_command(name="sync")
     async def sync(self, ctx: Context):
+        """
+        Sync the bot's commands
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
@@ -29,8 +37,16 @@ class Sync(commands.Cog):
         await sync_commands(self, ctx)
 
     @commands.guild_only()
-    @commands.hybrid_command(name="syncafkusers", description="Sync AFK users from the database.")
+    @commands.hybrid_command(name="syncafkusers")
     async def syncafkusers(self, ctx: Context):
+        """
+        Sync AFK users from the database.
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return
@@ -43,8 +59,16 @@ class Sync(commands.Cog):
         await ctx.reply(f"Syncing AFK Users in the background. This won't be displayed besides from this message.")
 
     @commands.guild_only()
-    @commands.hybrid_command(name="syncbanishedlist", description="Sync the banished list from the database")
+    @commands.hybrid_command(name="syncbanishedlist")
     async def syncbanishedlist(self, ctx: Context):
+        """
+        Sync the banished list from the database
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invokation
+        """
         if SemiFunc.command_disabled(ctx):
             await ctx.reply("That command is currently disabled.")
             return

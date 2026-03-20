@@ -65,14 +65,6 @@ class SemiFunc():
         config = files._config()
         # ignore_channels = []
         
-        # try:
-        #     ignore_channels = files.get_command_channel_ignores(ctx, type, ctx.command.name)
-        # except Exception as e:
-        #     ignore_channels = []
-            
-        #     if str(e) != "'Message' object has no attribute 'command'":
-        #         print(f"error: {e}")
-
         # Before we do checks. we check if the channel is a ignore channel.
         # if ctx.channel.id in ignore_channels:
         #     return False
@@ -135,21 +127,29 @@ class SemiFunc():
             moderation_embed.title = f"Staff at {files.get_server_name()}"
             moderation_embed.description = f"You've been kicked from {files.get_server_name()} by {ctx.author.name} ({ctx.author.display_name})"
             moderation_embed.description = moderation_embed.description + f"\n\nReason: {args[0]}\nPunisher: {ctx.author.name}\n\n\nServer Invite: https://discord.gg/X8QqpeYgGF"
+            
+            bot.logger.info(f"{ctx.author.name} kicked {user.name}. Reason: {args[0]}")
         elif moderation_type == "ban":
             isGud = True
             moderation_embed.title = f"Staff at {files.get_server_name()}"
             moderation_embed.description = f"You've been banned from {files.get_server_name()} permanently by {ctx.author.name} ({ctx.author.display_name})"
             moderation_embed.description = moderation_embed.description + f"\n\nReason: {args[0]}\nPunisher: {ctx.author.name}\n\n\nServer Invite: https://discord.gg/X8QqpeYgGF"
+            
+            bot.logger.info(f"{ctx.author.name} banned {user.name}. Reason: {args[0]}")
         elif moderation_type == "mute":
             isGud = True
             moderation_embed.title = f"Staff at {files.get_server_name()}"
             moderation_embed.description = f"You've been muted in {files.get_server_name()} by {ctx.author.name} ({ctx.author.display_name})"
             moderation_embed.description = moderation_embed.description + f"\n\nReason: {args[0]}\nPunisher: {ctx.author.name}"
+            
+            bot.logger.info(f"{ctx.author.name} muted {user.name}. Reason: {args[0]}")
         elif moderation_type == "unmute":
             isGud = True
             moderation_embed.title = f"Staff at {files.get_server_name()}"
             moderation_embed.description = f"You've been unmuted in {files.get_server_name()} by {ctx.author.name} ({ctx.author.display_name})"
             moderation_embed.description = moderation_embed.description + f"\n\nReason: {args[0]}\nPunisher: {ctx.author.name}"
+
+            bot.logger.info(f"{ctx.author.name} unmuted {user.name}. Reason: {args[0]}")
         elif moderation_type == "message_banished_flagged":
             audit = ctx.guild.get_channel(SemiFunc.get_channel_id(ctx, "audit"))
 
@@ -182,6 +182,7 @@ class SemiFunc():
             
             await ctx.reply(f"{args[0]}")
             await audit.send(embed=moderation_embed)
+            bot.logger.info(f"\n{ctx.author.name}'s message was banished.\nMessage: {ctx.content}\nDetected word: {args[1]}")
 
             return
 
@@ -215,9 +216,7 @@ class SemiFunc():
                     if user.id in ignores[cmd]:
                         await ctx.reply(f"{user.mention} is not worthy of the {inator_text}.")
                         return
-            # else:
-            #     print(f"interaction {ctx.interaction.command.name}")
-
+            
             if do_what == "remove":
                 if inator_type == "explode":
                     await user.remove_roles(ctx.guild.get_role(role), reason=f"They unexploded")
@@ -323,6 +322,22 @@ class SemiFunc():
                 return True
 
         return False
+    
+    def in_ignored_channel(ctx: Context, sub: str):
+        commands = files.get_filepath("commands", "json")
+
+        with open(commands, "r", encoding="utf8") as file:
+            data = json.load(file)
+            if data['ignore_channels'] and data['ignore_channels'][sub] != None:
+                ignore_channels = data['ignore_channels']
+            else:
+                ignore_channels = []
+            
+        if ctx.channel.id in ignore_channels:
+            return True
+        
+        return False
+
     
     async def log_command_use(bot, author: discord.User, message_content, interaction: discord.Interaction, ctx: Context):
         if files.get_config_entry("output_on_command_used_enabled"):

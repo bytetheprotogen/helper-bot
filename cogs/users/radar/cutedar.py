@@ -11,8 +11,18 @@ class cutedar(commands.Cog):
         self.bot: Bot = bot
 
     @commands.guild_only()
-    @commands.hybrid_command(name="cutedar", description="See how cute someone is!")
+    @commands.hybrid_command(name="cutedar")
     async def cutedar(self, ctx: Context, user: discord.Member):
+        """
+        See how cute someone is!
+
+        Parameters
+        ----------
+        ctx: Context
+            The context of the command invocation
+        user: discord.Member
+            The user to use the radar on
+        """
         if user:
             if user.bot:
                 await ctx.reply("Not able to use radar commads on bots.")
