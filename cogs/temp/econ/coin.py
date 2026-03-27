@@ -1,6 +1,5 @@
 import enum
 import random
-import sqlite3
 
 from utils.econ import Economy
 from utils.database import Database
@@ -42,9 +41,10 @@ class Econ__Coin(commands.Cog):
             return
         
         user = Database.userdata_conn.cursor().execute(f"SELECT * FROM user_data WHERE user_id={ctx.author.id}").fetchone()
-        if bet > user[3] or user[3] == 0:
+        if bet > user[4] or user[4] == 0:
             await ctx.reply(f"You don't have enough to bet.")
             return
+        Economy.use_econ(ctx, ctx.author, self.bot.logger)
         
         # if Economy.econ__is_on_cooldown(ctx, ctx.author, self.bot.logger):
         #     await ctx.reply(f"You are on cooldown! Please try again tomorrow.")
@@ -68,7 +68,7 @@ class Econ__Coin(commands.Cog):
         if you_won:
             # "Congratulations You Won!"
             if len(user) > 0:
-                bal = user[3]
+                bal = user[4]
                 embed = Economy.econ_embed(
                         user=ctx.author,
                         title=f"{choice.value.capitalize()}!",

@@ -1,4 +1,3 @@
-import sqlite3
 import discord
 
 from utils.econ import Economy
@@ -59,11 +58,11 @@ class Econ__Balance(commands.Cog):
             have_text = user_real.name
 
         if len(user_data) > 0:
-            balance = user_data[3]
+            balance = user_data[4]
             embed:discord.Embed = Economy.econ_embed(
-                    user=user_real,
-                    title="Balance",
-                    description=f"{have_text} {Economy.format_amount(round(balance, 2))} {Economy.get_curreny_name()}"
+                user=user_real,
+                title="Balance",
+                description=f"{have_text} {Economy.format_amount(round(balance, 2))} {Economy.get_curreny_name()}"
             )
 
             await ctx.reply(embed=embed)

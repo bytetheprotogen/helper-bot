@@ -7,12 +7,11 @@ from discord.ext import commands
 from utils.discordbot import Bot
 
 import utils.files as files
-from utils.semifunc import SemiFunc
 
 prev_status = []
 
 async def change_status(bot: Bot):
-    statuses = files._config()['statuses']
+    statuses = files.get_bot_config_entry("statuses")
     rand_status = random.choice(statuses)
     activity = -1
 
@@ -66,6 +65,7 @@ class Status(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         if self.status_rand_connected == False:
+            await asyncio.sleep(1)
             # 09/03/2026 - Random statuses
             self.status_rand_connected = True
             # await change_status(self.bot)

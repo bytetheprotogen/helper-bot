@@ -1,19 +1,6 @@
 {
     "disabled": [
-        "balance",
-        "bal",
-        "blackjack",
-        "coin",
-        "cups",
-        "cooldowntest",
-        "give",
-        "add_money",
-        "remove_money",
-
-        "work",
-        "quit",
-        "apply",
-        "jobs"
+        
     ],
     "disabled_other": [
         "membercount",

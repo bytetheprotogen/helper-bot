@@ -1,14 +1,9 @@
-import os
 import re
-import json
-import random
 import discord
 
-from datetime import datetime
 from discord.ext import commands
 from misc import banished_words_private as banished_words_privateA
 from utils.discordbot import Bot
-from utils.files import files
 from utils.semifunc import SemiFunc
 
 class BanishMessage(commands.Cog):
@@ -26,7 +21,8 @@ class BanishMessage(commands.Cog):
             banished_words_private = banished_words_privateA.private_banished()
 
             msg_content_lower = msg.content.lower()
-            content_lower_final = re.sub(r'[(#@-_\\/^,.)]', '', msg_content_lower).replace(" ", "")
+            content_lower_final = re.sub(r'[(#@-_\\/^,.)]', '', msg_content_lower)
+            # content_lower_final = re.sub(r'[(#@-_\\/^,.)]', '', msg_content_lower).replace(" ", "")
             canBanish = "Yes, banish it"
             
             if msg.author.bot == False:
