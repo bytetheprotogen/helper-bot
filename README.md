@@ -2,6 +2,8 @@
 
 #### A basic and rather silly bot made for The Fluffy Concourse
 
+### Made by snow2code
+
 ## Features
 - Mostly modulator!
 
