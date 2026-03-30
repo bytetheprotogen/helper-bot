@@ -1,8 +1,10 @@
 import random
 import asyncio
 
+from discord import errors
 from discord.ext import commands
 from utils.discordbot import Bot
+from utils.semifunc import SemiFunc
 import utils.files as files
 
 async def status_loop(bot: Bot):
@@ -27,9 +29,25 @@ async def status_loop(bot: Bot):
         ## CONFIGURATION NEEDED HERE FOR WHO ISN'T SNOWY-
         general_chat = bot.get_channel(1414222708324958385)
         reaction = bot.get_emoji(1479235584127143978)
+        should_send = True
+        
+        # test channel
+        if bot.user.id == 1482861019582693507:
+            general_chat = bot.get_channel(1486657608570900510)
+            reaction = bot.get_emoji(1480095058811424842)
+        
+        # If the last message is by the bot, do not do shit
+        if general_chat.last_message:
+            if general_chat.last_message.author.id == bot.user.id:
+                if SemiFunc.in_string(general_chat.last_message.content, "fox_owo") == False:
+                    should_send = False
 
         if general_chat != None:
-            await general_chat.send(random_message)
+            if should_send:
+                try:
+                    await general_chat.send(random_message)
+                except errors.HTTPException as e:
+                    bot.logger.warn(f"listeners.bot_reactions.random_message - Got HTTPException. Message: {e}")
         else:
             bot.logger.warn("listeners.bot_reactions.random_messages - general_chat is None!! Edit the channel id you goober!")
 
@@ -39,13 +57,6 @@ async def status_loop(bot: Bot):
         if rand > 80:
             # If general_chat is none, don't send.. assume we are testing -w-
             if general_chat != None:
-                should_send = True
-
-                # If the last message is by the bot, do not do shit
-                if general_chat.last_message:
-                    if general_chat.last_message.author.id == bot.user.id:
-                        should_send = False
-
                 if should_send:
                     await general_chat.send(content=f"<:{reaction.name}:{reaction.id}>")
 

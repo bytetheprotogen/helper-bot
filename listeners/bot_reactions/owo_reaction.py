@@ -14,7 +14,7 @@ class OwOReaction(commands.Cog):
         # 13/03/2026 - Bugfix: DMs can cause some issues.
         if not isinstance(msg.channel, discord.DMChannel):
             # OwO reaction
-            if msg.content.lower() == "owo" or msg.content.lower() == "<:fox_owo:1479235584127143978>":
+            if msg.content.lower() == "owo" or msg.content.lower() == "<:fox_owo:1488160486150115549>":
                 # Do not owo react in audits
                 if msg.channel.id != SemiFunc.get_channel_id(msg, "audit"):
                     owoId = files.get_emoji_ids(msg.guild.id)['owo']

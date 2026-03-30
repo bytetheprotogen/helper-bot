@@ -33,12 +33,6 @@ class Econ__Balance(commands.Cog):
             # await ctx.message.delete()
             return
         
-        # No cooldown for balance!!
-        # if Economy.econ__is_on_cooldown(ctx.author, self.bot.logger):
-        #     await ctx.reply(f"You are on cooldown! Please try again tomorrow.")
-        #     return
-        # else:
-        #     Economy.econ__put_on_cooldown(ctx, ctx.author, self.bot.logger)
         user_real: discord.Member = ctx.author
         if user != None:
             user_real = user

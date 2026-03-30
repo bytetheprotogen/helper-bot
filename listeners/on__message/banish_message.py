@@ -26,6 +26,12 @@ class BanishMessage(commands.Cog):
             canBanish = "Yes, banish it"
             
             if msg.author.bot == False:
+                shouldBanish = True
+
+                for ignore in banished_ignore:
+                    if content_lower_final.find(ignore) >= 0:
+                        # self.bot.logger.info(msg=f"Don't banish '{msg_content_lower}' sent by {msg.author.name}")
+                        shouldBanish = False
 
                 for thing in banished_nodelete:
                     if content_lower_final.find(thing) >= 0:
@@ -59,8 +65,6 @@ class BanishMessage(commands.Cog):
 
                     if canBanish in ["Yes, banish it", "Maybe banish it?"]:
                         for banished_thing in banished:
-                            shouldBanish = True
-
                             # 12/03/2026
                             # Emojis can have 67 in it...
                             # same with channel ids
@@ -70,10 +74,6 @@ class BanishMessage(commands.Cog):
                                 shouldBanish = False
 
                             # 3 - If banished_thing in banished_ignore, do not banish
-                            for ignore in banished_ignore:
-                                if content_lower_final.find(ignore) >= 0:
-                                    # self.bot.logger.info(msg=f"Don't banish '{msg_content_lower}' sent by {msg.author.name}")
-                                    shouldBanish = False
                                 
                             if shouldBanish:
                                 if msg_content_lower.find(banished_thing) >= 0:
@@ -88,20 +88,20 @@ class BanishMessage(commands.Cog):
                             await SemiFunc.moderate_user(self.bot, msg, msg.author, "message_banished", [banished_words_private[banished_thing], banished_thing])
                             await msg.delete()
                 
-                
-                # These are banished for ALL, even staff.
-                for banished_thing in banished_words_noignore:
-                    if content_lower_final.find(banished_thing) >= 0:
-                        # await msg.reply(banished_words_noignore[banished_thing])
-                        await SemiFunc.moderate_user(self.bot, msg, msg.author, "message_banished", [banished_words_noignore[banished_thing], banished_thing])
-                        await msg.delete()
+                if shouldBanish:
+                    # These are banished for ALL, even staff.
+                    for banished_thing in banished_words_noignore:
+                        if content_lower_final.find(banished_thing) >= 0:
+                            # await msg.reply(banished_words_noignore[banished_thing])
+                            await SemiFunc.moderate_user(self.bot, msg, msg.author, "message_banished", [banished_words_noignore[banished_thing], banished_thing])
+                            await msg.delete()
                     
 
                     
                 # Banish Snowy Paws
-                if msg.author.id == 888072934114074624 or msg.author.id == 1257541858809217035 or msg.author.id == 1094359688541372457 or msg.author.id == 1403877222959419423:
+                if msg.author.id == 888072934114074624 or msg.author.id == 1403877222959419423 or msg.author.id == 1257541858809217035 or msg.author.id == 1094359688541372457 or msg.author.id == 1403877222959419423:
                     pawMsg = "You've been banished from using snowy's paws."
-                    if msg.author.id == 888072934114074624:
+                    if msg.author.id == 888072934114074624 or msg.author.id == 1403877222959419423:
                         pawMsg = "You've been banished from using your paws."
 
                     # First snowy, and only snowy for now

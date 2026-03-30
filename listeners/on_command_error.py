@@ -35,7 +35,7 @@ class OnCommandError(commands.Cog):
             #     await ctx.message.delete()
             #     return
             
-            mention_snowy = "<@888072934114074624>"
+            mention_snowy = "<@1403877222959419423>"
             command_name = ctx.command.name
             date = datetime.now().strftime('%d-%m-%Y at %H-%M-%S')
 

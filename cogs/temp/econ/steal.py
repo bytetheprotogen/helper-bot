@@ -34,9 +34,9 @@ class Econ__Steal(commands.Cog):
             # await ctx.message.delete()
             return
         
-        # if Economy.econ__is_on_cooldown(ctx, ctx.author, self.bot.logger):
-        #     await ctx.reply(f"You are on cooldown! Please try again tomorrow.")
-        #     return
+        if Economy.econ__is_on_cooldown(ctx, ctx.author, self.bot.logger):
+            await ctx.reply(f"You are on cooldown! Please try again tomorrow.")
+            return
 
         if user.id == ctx.author.id:
             await ctx.reply(f"You can't rob yourself.")
@@ -48,15 +48,14 @@ class Econ__Steal(commands.Cog):
 
         success_rate = 50
 
-        # Funnies. snowy has a 70% chance of a successful theft
-        if ctx.author.id == 888072934114074624:
+        # Funnies. snowy and natalie has a 70% chance of a successful theft
+        if ctx.author.id == 888072934114074624 or ctx.author.id == 1403877222959419423 or ctx.author.id == 1094359688541372457:
             success_rate = 70
 
         if random.randint(1, 100) < success_rate:
             amount = random.randint(5, 10)
             user_bal = Database.userdata_conn.cursor().execute(f"SELECT * FROM user_data WHERE user_id={ctx.author.id}").fetchone()[4]
             user_steal_bal = Database.userdata_conn.cursor().execute(f"SELECT * FROM user_data WHERE user_id={user.id}").fetchone()[4]
-            print()
 
             if user_steal_bal == 0:
                 await ctx.reply("They don't have anything for you to steal.")

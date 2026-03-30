@@ -41,8 +41,10 @@ async def change_status(bot: Bot):
     prev_status.append(rand_status['message'])
     try:
         await bot.change_presence(status=discord.Status.online, activity=activity)
+    except client_exceptions.ClientConnectionResetError as e:
+        bot.logger.warn(f"on__ready.status got aiohttp.client_exceptions.ClientConnectionResetError. Message: {e}")
     except client_exceptions.ClientConnectorDNSError as e:
-        bot.logger.warn(f"on__ready.status got ClientConnectorDNSError. Message: {e}")
+        bot.logger.warn(f"on__ready.status got aiohttp.client_exceptions.ClientConnectiorDNSError. Message: {e}")
     except discord.errors.DiscordException as e:
         bot.logger.warn(f"on__ready.status got DiscordException. Message: {e}")
     except discord.errors.DiscordServerError as e:

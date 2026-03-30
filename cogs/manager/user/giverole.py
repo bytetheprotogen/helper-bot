@@ -157,7 +157,7 @@ class giverole(commands.Cog):
                     await user.add_roles(role)
                     await ctx.reply(f"Gave {user.mention} the `{role.name}` role!", ephemeral=True)
             except commands.errors.CommandInvokeError as e:
-                await ctx.reply(f"A error occured with the command <@888072934114074624>\n```{e}```")
+                await ctx.reply(f"A error occured with the command <@1403877222959419423>\n```{e}```")
         else:
             await ctx.reply("Usage: ?giverole @role")
 

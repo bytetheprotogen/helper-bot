@@ -1,13 +1,7 @@
 import os
-import random
 import dotenv
-import asyncio
 import discord
 import threading
-import web.app as app
-
-from web.app import run as run_web
-from datetime import datetime
 
 good_to_go = True
 
@@ -42,14 +36,7 @@ if good_to_go == True:
         case_insensitive=True
     )
 
-    app.bot_instance = bot
-    
-    t = threading.Thread(target=run_web)
-    t.daemon = True
-    t.start()
-
     try:
         bot.run(token)
-
     except Exception as e:
         bot.logger.error(f"Error when logging in: {e}")

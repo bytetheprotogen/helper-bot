@@ -42,11 +42,9 @@ class Econ__Cups(commands.Cog):
             return
         Economy.use_econ(ctx, ctx.author, self.bot.logger)
         
-        # if Economy.econ__is_on_cooldown(ctx, ctx.author, self.bot.logger):
-        #     await ctx.reply(f"You are on cooldown! Please try again tomorrow.")
-        #     return
-        # else:
-        #     Economy.econ__put_on_cooldown(ctx, ctx.author, self.bot.logger)
+        if Economy.econ__is_on_cooldown(ctx, ctx.author, self.bot.logger):
+            await ctx.reply(f"You are on cooldown! Please try again tomorrow.")
+            return
 
         if bet < 1:
             bet = 1
@@ -87,6 +85,8 @@ class Econ__Cups(commands.Cog):
             )
 
             await ctx.reply(embed=embed)
+
+        Economy.econ__put_on_cooldown(ctx, ctx.author, self.bot.logger)
 
 
 async def setup(bot):

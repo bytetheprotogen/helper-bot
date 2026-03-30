@@ -9,7 +9,7 @@ from utils.custom.context import Context
 from utils.database import Database
 
 def main_or_test(id: int):
-    if id == 1414222707570118656:
+    if id == 1357866922691002620:
         return "main"
     return "test"
 
@@ -318,8 +318,9 @@ class SemiFunc():
                     embed.description = SemiFunc.radar_description(user, radar, 100, emoji)
                     
 
-            if radar == "cute" and user.id == 888072934114074624:
-                fool = True
+            if radar == "cute":
+                if user.id == 888072934114074624 or user.id == 1403877222959419423:
+                    fool = True
 
             if fool:
                 _what = ""
